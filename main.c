@@ -1,100 +1,93 @@
 #include <stdio.h>
 #include <string.h>
-enum {
-    EXIT,
-    INSERT,
-    SEARCH,
-    DELETE,
-    PRINT_ALL
+
+enum doWhat{
+    INSERT = 1, SEARCH, DELETE, UPDATE, QUIT
 };
-//회원정보 하나 저장할 구조체, 이름, 나이, 성별
-typedef struct member{
-    char name[30];
-    int age;
-}Member;
-Member arr[20] ={
-    {"홍길동", 2222},
-    {"김철수", 3332},
-    {"이학우", 1222}
-};
-int idx = 3; // arr 제어할 변수
-void InsertMember(){
-    //회원정보 하나 입력을 받아서 arr에 등
-    if(idx == 20){
-        printf("더이상 저장할 공간이 없습니다\n");
-        return;
-    }
-    printf("이름 입력 : ");
-    scanf(" %s",arr[idx].name);
-    printf("전화번호 입력 : ");
-    scanf(" %d",&arr[idx].age);
-    idx++;//인덱스 번호 하나 증가
-    printf("회원정보 등록 완료\n");
+
+typedef struct tel {
+    char name[11];
+    int number;
+}Tel;
+
+int idx = 0;
+struct tel arr[10] = { 0 };
+
+void InsertTel(){
+    printf("이름을 입력해주세요 : ");
+    scanf("%s", arr[idx].name);
+    printf("번호를 입력해주세요 : ");
+    scanf("%d", &arr[idx].number);
+    idx++;
+    printf("등록 완료");
 }
-void PrintAllMember(){
-    //전체 회원 정보를 출력
-    printf("전체 회원정보 출력\n\n");
-    for(int i=0;i<idx;i++)  
-        printf("%s %d %c\n",arr[i].name, arr[i].age);  
-    printf("\n");
-}
-void SearchMember(){
-//이름하나 입력 받아서
-//구조체가 가지고 있는 name과 동일한 데이터를 찾음
-    char str[30];
+void SearchTel(){
+    char str[11];
     printf("검색할 이름 입력 : ");
     scanf("%s",str);
     for(int i=0;i<idx;i++){
         if(strcmp(arr[i].name,str) == 0){
-            printf("%s %d %c\n",arr[i].name, arr[i].age);  
+            printf("%s %d\n",arr[i].name, arr[i].number);
             return;
         }
     }
     printf("검색 결과가 없습니다.\n");
 }
-void DeleteMember(){
-    //삭제할 이름 입력을 받음
-    char str[30];
+void DeleteTel(){
+    char str[11];
     printf("삭제할 이름 입력 : ");
     scanf("%s",str);
     for(int i=0;i<idx;i++){
         if(strcmp(arr[i].name,str) == 0){
-            //삭제를 수행
-            //배열의 내용을 한칸씩 땡김
             for(int j=i;j<idx-1;j++)
                 arr[j] = arr[j+1];
-            idx--;//인덱스 값 감소
+            idx--;
             return;
         }
     }
     printf("삭제할 데이터가 없습니다.\n");
 }
-int main(void){
-    int no = -1;
+void UpdateTel(){
+    char str[11];
+    printf("수정할 이름 입력 : ");
+    scanf("%s",str);
+    for(int i=0;i<idx;i++){
+        if(strcmp(arr[i].name,str) == 0){
+            printf("수정할 번호 입력 : ");
+            scanf("%d",arr[i].number);
+            return;
+        }
+    }
+    printf("검색 결과가 없습니다.\n");
+}
 
-    while(no != EXIT){
-        puts("--- 회원정보 관리 프로그램 ---");
-        puts("1. 회원정보 등록");
-        puts("2. 회원정보 검색");
-        puts("3. 회원정보 삭제");
-        puts("4. 전체 회원정보 등록");
-        puts("0. 프로그램 종료");
-        puts("원하시는 메뉴 번호 입력 : ");
-        scanf("%d",&no);
+int main(void) {
+    int no=0;
 
-        switch(no){
-            case INSERT:
-                InsertMember();
-                break;
-            case SEARCH:
-                SearchMember();
-                break;
-            case DELETE:
-                DeleteMember();
-                break;
-            case PRINT_ALL:
-                PrintAllMember();
-                break;
+    while (no != QUIT) {
+        printf("원하는 기능을 입력해주세요.\n");
+        printf("연락처 등록 : 1\n");
+        printf("연락처 검색 : 2\n");
+        printf("연락처 삭제 : 3\n");
+        printf("연락처 수정 : 4\n");
+        printf("종료 : 5\n");
+        scanf("%d", &no);
+        switch (no)
+        {
+        case INSERT:
+            InsertTel();
+            break;
+        case SEARCH:
+            SearchTel();
+            break;
+        case DELETE:
+            DeleteTel();
+            break;
+        case UPDATE:
+            UpdateTel();
+            break;
+        default:
+            break;
         }
     }
 
