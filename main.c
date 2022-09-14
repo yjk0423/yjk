@@ -11,12 +11,11 @@ enum {
 typedef struct member{
     char name[30];
     int age;
-    char gender;//M, F
 }Member;
 Member arr[20] ={
-    {"홍길동", 22, 'F'},
-    {"김철수", 32, 'M'},
-    {"이학우", 12, 'F'}
+    {"홍길동", 2222},
+    {"김철수", 3332},
+    {"이학우", 1222}
 };
 int idx = 3; // arr 제어할 변수
 void InsertMember(){
@@ -27,10 +26,8 @@ void InsertMember(){
     }
     printf("이름 입력 : ");
     scanf(" %s",arr[idx].name);
-    printf("나이 입력 : ");
+    printf("전화번호 입력 : ");
     scanf(" %d",&arr[idx].age);
-    printf("성별 입력 : ");
-    scanf(" %c",&arr[idx].gender);
     idx++;//인덱스 번호 하나 증가
     printf("회원정보 등록 완료\n");
 }
@@ -38,7 +35,7 @@ void PrintAllMember(){
     //전체 회원 정보를 출력
     printf("전체 회원정보 출력\n\n");
     for(int i=0;i<idx;i++)  
-        printf("%s %d %c\n",arr[i].name, arr[i].age, arr[i].gender);  
+        printf("%s %d %c\n",arr[i].name, arr[i].age);  
     printf("\n");
 }
 void SearchMember(){
@@ -49,7 +46,7 @@ void SearchMember(){
     scanf("%s",str);
     for(int i=0;i<idx;i++){
         if(strcmp(arr[i].name,str) == 0){
-            printf("%s %d %c\n",arr[i].name, arr[i].age, arr[i].gender);  
+            printf("%s %d %c\n",arr[i].name, arr[i].age);  
             return;
         }
     }
